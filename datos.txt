@@ -1,26 +1,510 @@
-Jugador: roman
-Puntuación: 2
-Jugador: roman
-Puntuación: 2
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
-Jugador: roman
-Puntuación: 3
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
+Jugador: 
+Puntuación: 5
