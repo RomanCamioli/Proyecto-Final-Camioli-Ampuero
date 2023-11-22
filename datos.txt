@@ -1,3 +1,18 @@
-Jugador: 
-Puntuación: 5
-
+Nombre: sofia, Puntuación: 13
+Nombre: pamela, Puntuación: 15
+Nombre: ingrid, Puntuación: 14
+Nombre: roman, Puntuación: 10
+Nombre: luli, Puntuación: 13
+Nombre: heladito, Puntuación: 13
+Nombre: milei, Puntuación: 9
+Nombre: rosa, Puntuación: 15
+Nombre: roman, Puntuación: 8
+Nombre: kiki, Puntuación: 8
+Nombre: simon, Puntuación: 7
+Nombre: vicky, Puntuación: 16
+Nombre: bianca, Puntuación: 12
+Nombre: diana, Puntuación: 15
+Nombre: susi, Puntuación: 13
+Nombre: tino, Puntuación: 11
+Nombre: luna, Puntuación: 6
+Nombre: sopa￿, Puntuación: 7
