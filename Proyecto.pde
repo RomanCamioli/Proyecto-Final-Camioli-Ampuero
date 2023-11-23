@@ -1,19 +1,26 @@
+import processing.core.PImage;
+import processing.serial.*;
+
+String ListaPuertos[];
+Serial MiPuerto;
 
 float distanciaX, distanciaY,distanciaX1, distanciaY1, distanciaXvirus,distanciaYvirus;
+
 boolean gameOver, gameStart;
-import processing.core.PImage;
-int nivel=0;
-PImage fondo;
-PImage score;
-PImage inicio;
-int tiempoLimite = 11000; // 30 segundos en milisegundos
-int tiempoInicio;
 boolean temporizadorActivo = true;
 boolean juegoPausado = false;
-String nombre = "";
-int aciertos = 0;
-ArrayList<String> listaJugadores = new ArrayList<String>(); //lista donde se almacenan todos los jugaadores
 boolean entradaNombre = true;
+
+int nivel=0;
+int aciertos = 0;
+int tiempoLimite = 31000; // 30 segundos en milisegundos
+int tiempoInicio;
+
+PImage fondo, inicio, score;
+
+String nombre = "";
+ArrayList<String> listaJugadores = new ArrayList<String>(); //lista donde se almacenan todos los jugaadores
+
 PrintWriter writer;
 
    public class Objeto { //                                                                              CREACION CLASE
@@ -23,7 +30,8 @@ PrintWriter writer;
         int velocidad;
         int puntos;
          Objeto(){
-          }
+          }//constructor
+          
    void setObjeto(int diametro,float x, float y, int velocidad, int puntos) { //funcion para establecer los parametros de los obj
         this.diametro = diametro;
         this.x = x;
@@ -32,11 +40,15 @@ PrintWriter writer;
         ellipse(x, y, diametro, diametro);
         this.puntos = puntos;
           }
+          
    void drawObjeto(String nombreImagen){ //funcion para subir y cargar imagenes
      imageMode(CENTER);
      imagen = loadImage(nombreImagen);
      image(imagen,x,y,diametro,diametro);
-      }};
+      }
+    
+  };//fin de clase
+      
 Objeto Jugador, Hueso, Carne, Virus;
    
 
@@ -50,8 +62,13 @@ void cargarDatos() {
   }
 }
    
-void setup(){ //                                                                                               SETUP
- size(1280,720);
+void setup(){ //SETUP
+
+ListaPuertos=Serial.list();//asignamos los puertos
+println(ListaPuertos[0]);//mostramos el primer puerto disponible
+MiPuerto=new Serial(this, ListaPuertos[0],9600);//asignamos el objeto serial al puerto seleccionado anteriormente
+
+size(1280,720);
  
  cargarDatos(); 
 imageMode(CENTER);
@@ -75,6 +92,21 @@ Virus.setObjeto(80, random(width), 0, 9,-3); //                    VIRUS
 };
 
 void draw(){ //                                                                                                  DRAW
+ // Jugador.x = MiPuerto.read();
+  // 
+    if (MiPuerto.available() > 0) { //siempre que el puerto este disponible..
+    
+    if( MiPuerto.read() == 10 ){//si el puerto recibe una señal HIGH mueve a la derecha...
+     Jugador.x += Jugador.velocidad; 
+     MiPuerto.clear();
+    }
+    
+    else if( MiPuerto.read() != 10){//si recibe una señal distinta de 10 (low) mueve a la izq
+     Jugador.x -= Jugador.velocidad; 
+     MiPuerto.clear();
+    }
+    }
+    //MiPuerto.clear();
   
   distanciaY = Jugador.y - Hueso.y;  //distancia del jugador al objeto
   distanciaX = Jugador.x - Hueso.x;
@@ -259,12 +291,12 @@ void keyPressed(){ //                                                           
     temporizadorActivo = true;
     juegoPausado = false;
   }
-  if(keyCode == LEFT){                        //para mover el objeto del perro en el juego
+/*  if(keyCode == LEFT){                        //para mover el objeto del perro en el juego
   Jugador.x -= Jugador.velocidad;
   }
   else if(keyCode == RIGHT){
   Jugador.x += Jugador.velocidad;
-  }
+  }*/
   if(keyCode == UP && Hueso.velocidad < 20 && nivel < 4){ //sube la dificultad del juego
     Hueso.velocidad += 5;
     Carne.velocidad += 7;
