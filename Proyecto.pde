@@ -4,6 +4,9 @@ import processing.serial.*;
 String ListaPuertos[];
 Serial MiPuerto;
 
+
+  
+
 float distanciaX, distanciaY,distanciaX1, distanciaY1, distanciaXvirus,distanciaYvirus;
 
 boolean gameOver, gameStart;
@@ -94,19 +97,7 @@ Virus.setObjeto(80, random(width), 0, 9,-3); //                    VIRUS
 void draw(){ //                                                                                                  DRAW
  // Jugador.x = MiPuerto.read();
   // 
-    if (MiPuerto.available() > 0) { //siempre que el puerto este disponible..
     
-    if( MiPuerto.read() == 10 ){//si el puerto recibe una señal HIGH mueve a la derecha...
-     Jugador.x += Jugador.velocidad; 
-     MiPuerto.clear();
-    }
-    
-    else if( MiPuerto.read() != 10){//si recibe una señal distinta de 10 (low) mueve a la izq
-     Jugador.x -= Jugador.velocidad; 
-     MiPuerto.clear();
-    }
-    }
-    //MiPuerto.clear();
   
   distanciaY = Jugador.y - Hueso.y;  //distancia del jugador al objeto
   distanciaX = Jugador.x - Hueso.x;
@@ -167,6 +158,20 @@ void draw(){ //                                                                 
    Hueso.y += Hueso.velocidad;
    Carne.y += Carne.velocidad;
    Virus.y += Virus.velocidad;
+   
+   if (MiPuerto.available() > 0) { //siempre que el puerto este disponible..
+    
+    if( MiPuerto.read() == 10 ){//si el puerto recibe una señal HIGH mueve a la derecha...
+     Jugador.x += Jugador.velocidad; 
+     MiPuerto.clear();
+    }
+    
+    else if( MiPuerto.read() != 10){//si recibe una señal distinta de 10 (low) mueve a la izq
+     Jugador.x -= Jugador.velocidad; 
+     MiPuerto.clear();
+    }
+    }
+    //MiPuerto.clear();
  
   if (temporizadorActivo && !juegoPausado) {
     int tiempoTranscurrido = millis() - tiempoInicio;
@@ -285,18 +290,14 @@ void guardarDatos() {
   }
 }
 void keyPressed(){ //                                                                                                     KEYPRESS
+
   if(keyCode == ENTER && gameStart == false){ //al apretar enter inicia el juego y el temporizador
     gameStart = true;
     tiempoInicio = millis();
     temporizadorActivo = true;
     juegoPausado = false;
   }
-/*  if(keyCode == LEFT){                        //para mover el objeto del perro en el juego
-  Jugador.x -= Jugador.velocidad;
-  }
-  else if(keyCode == RIGHT){
-  Jugador.x += Jugador.velocidad;
-  }*/
+
   if(keyCode == UP && Hueso.velocidad < 20 && nivel < 4){ //sube la dificultad del juego
     Hueso.velocidad += 5;
     Carne.velocidad += 7;
@@ -314,15 +315,45 @@ void keyPressed(){ //                                                           
     if (key == '\n') {  
       entradaNombre = false;
     
-    } else if (key == BACKSPACE) {  
-      if (nombre.length() > 0) {
-        nombre = nombre.substring(0, nombre.length() - 1);
-      }
-    } else {
+    } 
+    else if (key == BACKSPACE) {  
+      
+        if (nombre.length() > 0) {
+            nombre = nombre.substring(0, nombre.length() - 1);
+        }
+    } 
+    else {
       nombre = nombre + key;
-    }}
+    }
+  }
     if (keyCode == ESC) {    // para salir del juego y guardar los datos del jugador en el archivo
     guardarDatos();
     exit(); 
   }
+  
+  if(keyCode == 'W' && gameStart == false){
+    gameStart = true;
+    tiempoInicio = millis();
+    temporizadorActivo = true;
+    juegoPausado = false;
+    MiPuerto.write("W");
+   partidaDemo(); 
+  }
+  
 }
+
+void partidaDemo(){
+  if (MiPuerto.available() > 0) { //siempre que el puerto este disponible..
+    
+    if( MiPuerto.read() < 50 ){//si el puerto recibe una señal HIGH mueve a la derecha...
+     Jugador.x += Jugador.velocidad; 
+     //MiPuerto.clear();
+    }
+    
+    else if( MiPuerto.read() > 50){//si recibe una señal distinta de 10 (low) mueve a la izq
+     Jugador.x -= Jugador.velocidad; 
+     //MiPuerto.clear();
+    }
+    }
+}
+  
