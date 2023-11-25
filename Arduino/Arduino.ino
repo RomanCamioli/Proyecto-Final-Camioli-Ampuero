@@ -1,9 +1,9 @@
-const int interruptorPin = 3;
+int interruptorPin = 4;
 
-int jugadorX;
-long numRandom;
+unsigned const int izquierda = 0, derecha = 1;
+int movimiento;
 
-boolean partidaDemo = false;
+bool partidaDemo = false, replay = false, partida = true;
 
 void setup() {
   Serial.begin(9600);
@@ -11,26 +11,53 @@ void setup() {
 }
 
 void loop() {
-  int estadoInterruptor = digitalRead(interruptorPin);
   
+  unsigned int estadoInterruptor = digitalRead(interruptorPin);
+
   if(Serial.read() == 'W'){
     partidaDemo = true ;
+    partida = false;
   }//if
-  
+
   if(partidaDemo){
-    numRandom = random(101);
-    Serial.write(numRandom);
-    //Serial.println(numRandom);
+
+    movimiento = random(2);
+      if(movimiento == 0){
+        Serial.write(derecha);
+      }//if
+
+      else{
+        Serial.write(izquierda);
+      }//else
   }//if
   
-  else if(!partidaDemo){
-    if(estadoInterruptor == HIGH){ //IZQUIERDA
-    Serial.write(10);
+  else if(partida){
+    partidaDemo = false;
+    replay = false;
+
+    if(estadoInterruptor == HIGH){ //derecha
+    Serial.write(derecha);
     }//if
   
-    else if(estadoInterruptor == LOW){ //DERECHA
-    Serial.write(0);
+    else if(estadoInterruptor == LOW){ //izq
+    Serial.write(izquierda);
       }
     }//else
-  Serial.println(estadoInterruptor);
+
+  if(Serial.read() == 'L'){
+    replay = true;
+    partidaDemo = false;
+    partida = false;
+  }
+  if(replay){
+    
+    movimiento = Serial.read();
+      if(movimiento == 0){
+        Serial.write(derecha);
+      }//if
+
+      else{
+        Serial.write(izquierda);
+      }//else
+  }
 }//loop
