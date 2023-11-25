@@ -13,7 +13,7 @@ boolean gameOver, gameStart;
 boolean temporizadorActivo = true;
 boolean juegoPausado = false;
 boolean entradaNombre = true;
-boolean replay = false;
+boolean replay = false, partidaDemo = false;
 
 int nivel=0;
 int aciertos = 0;
@@ -74,6 +74,7 @@ println(ListaPuertos[0]);//mostramos el primer puerto disponible
 MiPuerto=new Serial(this, "COM3",9600);//asignamos el objeto serial al puerto seleccionado anteriormente
 
 size(1280,720);
+//size(1150,680);
 
 String lectura[] = loadStrings("partidaGuardada.txt");
 
@@ -164,29 +165,26 @@ void draw(){ //                                                                 
    Carne.y += Carne.velocidad;
    Virus.y += Virus.velocidad;
    
-   if (MiPuerto.available() > 0 && replay == false) { //siempre que el puerto este disponible..
+   if (MiPuerto.available() > 0 && !partidaDemo) { //siempre que el puerto este disponible..
     
   
     
     if( MiPuerto.read() == 1 ){//si el puerto recibe una señal HIGH mueve a la derecha...
      Jugador.x += Jugador.velocidad; 
      guardarMovimientos();
-     MiPuerto.clear();
      println(MiPuerto.read());
+     MiPuerto.clear();
 
     }
     
-    if( MiPuerto.read() == 0){//si recibe una señal distinta de 10 (low) mueve a la izq
+    if( MiPuerto.read() == 0){//si recibe una señal distinta de 1 (low) mueve a la izq
      Jugador.x -= Jugador.velocidad;
      guardarMovimientos();
-     MiPuerto.clear();
      println(MiPuerto.read());
+     MiPuerto.clear();
       }
     }
    
-   if(replay && gameStart){
-        reproducir(); 
-   }
  
   if (temporizadorActivo && !juegoPausado) {
     int tiempoTranscurrido = millis() - tiempoInicio;
@@ -209,7 +207,22 @@ void draw(){ //                                                                 
     Virus.velocidad = 0; 
   }
    mostrarDatosJugadores(); //llamo funcion mostrar datos para que se ejecute una vez finalizado el juego
-  }}
+  }
+  
+    if(replay == true){
+        reproducir(); 
+   
+ }//modo replay
+ 
+   if(partidaDemo == true){
+        partidaDemo();
+   
+ }//modo demo
+
+}//gamestart
+
+
+  
    //contador de aciertos cuando agarra x objeto
   if(distanciaY < Jugador.diametro && abs(distanciaX) < Jugador.diametro) {
    aciertos += Hueso.puntos; //HUESO
@@ -226,6 +239,7 @@ void draw(){ //                                                                 
    Virus.x = random(width);
    Virus.y = 0;
   }
+  
   //declaro que la posicion en x caiga aleatoriamente del hueso, virus y carne
   else if(Hueso.y >= height){
    Hueso.x = random(width);
@@ -239,6 +253,7 @@ void draw(){ //                                                                 
    Virus.x = random(width);
    Virus.y = 0;
   }
+  
   //limito el movimiento del perro con la fn constrain
   Jugador.x = constrain(Jugador.x, 0, width);
  
@@ -349,12 +364,13 @@ void keyPressed(){ //                                                           
   }
   
   if(keyCode == 'W' && gameStart == false){
+    MiPuerto.write("W");
     gameStart = true;
+    partidaDemo = true;
     tiempoInicio = millis();
     temporizadorActivo = true;
     juegoPausado = false;
-    MiPuerto.write("W");
-    partidaDemo(); 
+   
   }
   
   if(keyCode == 'L' && gameStart == false){
@@ -363,26 +379,27 @@ void keyPressed(){ //                                                           
     tiempoInicio = millis();
     temporizadorActivo = true;
     juegoPausado = false;
-    MiPuerto.write("L");
+    MiPuerto.write(76);
   }
   
 }
 
 void partidaDemo(){
   
-  if (MiPuerto.available() > 0) { //siempre que el puerto este disponible..
-    float delayMovimiento = random(100);
+  if (partidaDemo) { //siempre que el puerto este disponible..
+    float delayMovimiento = random(40);
     
     if(MiPuerto.read() == 1){
       
       Jugador.x += Jugador.velocidad;
+      MiPuerto.clear();
       delay(int(delayMovimiento));
       
       }//if
     
     else{
-      
      Jugador.x -= Jugador.velocidad; 
+     MiPuerto.clear();
      delay(int(delayMovimiento));
 
     }//else
