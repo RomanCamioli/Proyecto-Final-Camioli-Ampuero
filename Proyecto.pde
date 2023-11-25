@@ -19,15 +19,18 @@ int nivel=0;
 int aciertos = 0;
 int tiempoLimite = 21000; // 30 segundos en milisegundos
 int tiempoInicio;
+int i = 0;
 
 PImage fondo, inicio, score;
 
+ArrayList<String> jugadas = new ArrayList<String>();//lista que almacena jugadas
+PrintWriter movimientos;
+
+PrintWriter writer;
 String nombre = "";
 ArrayList<String> listaJugadores = new ArrayList<String>(); //lista donde se almacenan todos los jugaadores
 
-PrintWriter writer;
-PrintWriter movimientos;
-String lectura[];
+
 
    public class Objeto { //                                                                              CREACION CLASE
         float x, y;
@@ -66,6 +69,18 @@ void cargarDatos() {
     }
   }
 }
+
+void cargarMovimientos(){
+  
+ String lectura[] = loadStrings("partidaGuardada.txt");
+ 
+  if (lectura != null && lectura.length > 0) {
+    for (String jugadasAnteriores : lectura) {//guarda en jugadas anteriores las lecturas
+      jugadas.add(jugadasAnteriores);
+    }
+  }//if  
+  
+}//fin de funcion
    
 void setup(){ //SETUP
 
@@ -76,10 +91,8 @@ MiPuerto=new Serial(this, "COM3",9600);//asignamos el objeto serial al puerto se
 size(1280,720);
 //size(1150,680);
 
-String lectura[] = loadStrings("partidaGuardada.txt");
-
-
 cargarDatos(); 
+cargarMovimientos();
 
 imageMode(CENTER);
 inicio = loadImage("imagenes/inicio.png"); //CARGO IMAGENES
@@ -99,6 +112,9 @@ Hueso.setObjeto(60, random(width), 0, 5,1); //                     HUESO
 Carne.setObjeto(60, random(width), 0, 7,2); //                     CARNE
 Virus.setObjeto(80, random(width), 0, 9,-3); //                    VIRUS
  tiempoInicio = millis();
+ 
+ 
+ movimientos = createWriter("partidaGuardada.txt");
 };
 
 void draw(){ //                                                                                                  DRAW
@@ -165,7 +181,7 @@ void draw(){ //                                                                 
    Carne.y += Carne.velocidad;
    Virus.y += Virus.velocidad;
    
-   if (MiPuerto.available() > 0 && !partidaDemo) { //siempre que el puerto este disponible..
+   if (MiPuerto.available() > 0 && !partidaDemo && !replay) { //siempre que el puerto este disponible..
     
   
     
@@ -209,14 +225,24 @@ void draw(){ //                                                                 
    mostrarDatosJugadores(); //llamo funcion mostrar datos para que se ejecute una vez finalizado el juego
   }
   
-    if(replay == true){
-        reproducir(); 
-   
+   if(replay == true){
+     
+     int jugada = reproducir();
+     if( jugada == 1 ){//si el puerto recibe una señal HIGH mueve a la derecha...
+     Jugador.x += Jugador.velocidad;
+     MiPuerto.clear();
+
+    }
+    
+    if( jugada == 0){//si recibe una señal distinta de 1 (low) mueve a la izq
+     Jugador.x -= Jugador.velocidad;
+     MiPuerto.clear();
+      }
+        
  }//modo replay
  
    if(partidaDemo == true){
         partidaDemo();
-   
  }//modo demo
 
 }//gamestart
@@ -374,12 +400,12 @@ void keyPressed(){ //                                                           
   }
   
   if(keyCode == 'L' && gameStart == false){
+    MiPuerto.write("L");
     gameStart = true;
     replay = true;
     tiempoInicio = millis();
     temporizadorActivo = true;
     juegoPausado = false;
-    MiPuerto.write(76);
   }
   
 }
@@ -409,33 +435,35 @@ void partidaDemo(){
 }//funcion demo
 
 void guardarMovimientos(){
+        
+  try{
     
-  movimientos = createWriter("partidaGuardada.txt");
-    
-    if( MiPuerto.read() == 1 ){//si el puerto recibe una señal HIGH mueve a la derecha...
-    movimientos.print(MiPuerto.read());
+    if( MiPuerto.read() == 1){//si el puerto recibe una señal
+    movimientos.println(MiPuerto.read());
     movimientos.flush();
     }
     
-    if( MiPuerto.read() == 0){//si recibe una señal distinta de 10 (low) mueve a la izq
-     movimientos.print(MiPuerto.read());
+    if( MiPuerto.read() == 0){//si recibe una señal distinta de 1 y no esta en modo repeticion guarda
+     movimientos.println(MiPuerto.read());
      movimientos.flush();
       }
+   }catch (Exception e) {
+    println("Error al guardar los datos: " + e.getMessage());
+  }
 }
 
-void reproducir(){
+
+
+
+int reproducir(){
   
-  for(int i = 0 ; i < lectura.length ; i++){
-      
-      if( lectura[i] == "1" ){
-        MiPuerto.write(lectura[i]);
-      }//if
-      
-    else{
-     MiPuerto.write(lectura[i]);
-      }//else
-      
-    }//for
+  if( i < jugadas.size()){
+    String lectura = jugadas.get(i); 
+    MiPuerto.write(lectura);    
+    i++;
+    return MiPuerto.read();
+  }
+  return MiPuerto.read();
 }
 
   

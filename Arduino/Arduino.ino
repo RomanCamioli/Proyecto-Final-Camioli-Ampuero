@@ -4,8 +4,7 @@ unsigned int estadoInterruptor;
 unsigned const int izquierda = 0, derecha = 1;
 int movimiento;
 
-bool partidaDemo = false;
-
+bool partidaDemo = false, replay = false;
 
 void setup() {
   Serial.begin(9600);
@@ -37,7 +36,7 @@ void loop() {
 
   }//if partidaDemo
 
-  else if(partidaDemo == false){
+  else if(partidaDemo == false && replay == false){
  
     if(estadoInterruptor == HIGH){ //derecha
     Serial.write(derecha);
@@ -47,5 +46,28 @@ void loop() {
     Serial.write(izquierda);
       }
     }//else (para jugar la partida)
+
+    if( dato == 'L' ){
+    replay = true ;
+    //Serial.println("Partida demo activa");
+  }//if
+
+  if(replay == true){
+
+    
+    //Serial.println("Partida replay activa");
+
+      if(dato == '1'){
+        Serial.write(derecha);
+        //Serial.println("derecha");
+      }//if
+
+      else if(dato == '0'){
+        Serial.write(izquierda);
+        //Serial.println("izquierda");
+      }//else
+
+  }//if replay
+
 
 }//loop
