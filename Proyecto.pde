@@ -13,10 +13,11 @@ boolean gameOver, gameStart;
 boolean temporizadorActivo = true;
 boolean juegoPausado = false;
 boolean entradaNombre = true;
+boolean replay = false;
 
 int nivel=0;
 int aciertos = 0;
-int tiempoLimite = 31000; // 30 segundos en milisegundos
+int tiempoLimite = 21000; // 30 segundos en milisegundos
 int tiempoInicio;
 
 PImage fondo, inicio, score;
@@ -25,6 +26,8 @@ String nombre = "";
 ArrayList<String> listaJugadores = new ArrayList<String>(); //lista donde se almacenan todos los jugaadores
 
 PrintWriter writer;
+PrintWriter movimientos;
+String lectura[];
 
    public class Objeto { //                                                                              CREACION CLASE
         float x, y;
@@ -40,7 +43,6 @@ PrintWriter writer;
         this.x = x;
         this.y = y;
         this.velocidad = velocidad;
-        ellipse(x, y, diametro, diametro);
         this.puntos = puntos;
           }
           
@@ -69,11 +71,15 @@ void setup(){ //SETUP
 
 ListaPuertos=Serial.list();//asignamos los puertos
 println(ListaPuertos[0]);//mostramos el primer puerto disponible
-MiPuerto=new Serial(this, ListaPuertos[0],9600);//asignamos el objeto serial al puerto seleccionado anteriormente
+MiPuerto=new Serial(this, "COM3",9600);//asignamos el objeto serial al puerto seleccionado anteriormente
 
 size(1280,720);
- 
- cargarDatos(); 
+
+String lectura[] = loadStrings("partidaGuardada.txt");
+
+
+cargarDatos(); 
+
 imageMode(CENTER);
 inicio = loadImage("imagenes/inicio.png"); //CARGO IMAGENES
 fondo = loadImage("imagenes/fondo.png");
@@ -95,8 +101,6 @@ Virus.setObjeto(80, random(width), 0, 9,-3); //                    VIRUS
 };
 
 void draw(){ //                                                                                                  DRAW
- // Jugador.x = MiPuerto.read();
-  // 
     
   
   distanciaY = Jugador.y - Hueso.y;  //distancia del jugador al objeto
@@ -144,6 +148,7 @@ void draw(){ //                                                                 
    fill(#FF5789);
     }
   }
+  
   else if(gameStart){ //                                                                                          COMIENZO JUEGO
    background(#AFCBF7);
    image(fondo,width/2,height/2,width,height);               
@@ -159,19 +164,29 @@ void draw(){ //                                                                 
    Carne.y += Carne.velocidad;
    Virus.y += Virus.velocidad;
    
-   if (MiPuerto.available() > 0) { //siempre que el puerto este disponible..
+   if (MiPuerto.available() > 0 && replay == false) { //siempre que el puerto este disponible..
     
-    if( MiPuerto.read() == 10 ){//si el puerto recibe una señal HIGH mueve a la derecha...
+  
+    
+    if( MiPuerto.read() == 1 ){//si el puerto recibe una señal HIGH mueve a la derecha...
      Jugador.x += Jugador.velocidad; 
+     guardarMovimientos();
      MiPuerto.clear();
+     println(MiPuerto.read());
+
     }
     
-    else if( MiPuerto.read() != 10){//si recibe una señal distinta de 10 (low) mueve a la izq
-     Jugador.x -= Jugador.velocidad; 
+    if( MiPuerto.read() == 0){//si recibe una señal distinta de 10 (low) mueve a la izq
+     Jugador.x -= Jugador.velocidad;
+     guardarMovimientos();
      MiPuerto.clear();
+     println(MiPuerto.read());
+      }
     }
-    }
-    //MiPuerto.clear();
+   
+   if(replay && gameStart){
+        reproducir(); 
+   }
  
   if (temporizadorActivo && !juegoPausado) {
     int tiempoTranscurrido = millis() - tiempoInicio;
@@ -224,8 +239,10 @@ void draw(){ //                                                                 
    Virus.x = random(width);
    Virus.y = 0;
   }
-  //declaro al objeto de perro para que se mueva por teclado
+  //limito el movimiento del perro con la fn constrain
   Jugador.x = constrain(Jugador.x, 0, width);
+ 
+   
 }//FIN DRAW
 
 /////////////////////////////////////////////////////////////////////////////////////////FUNCIONES/////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,7 +276,7 @@ void mostrarDatosJugadores() { //                                               
   String jugadorMasAlto = "";
   for (String jugador : listaJugadores) {
     String[] partes = split(jugador, ",");
-    int puntaje = int(split(partes[1], ":")[1].trim());
+    int puntaje = int(split(partes[1], ":")[1].trim() );
     if (puntaje > puntajeMasAlto) {
       puntajeMasAlto = puntaje;
       jugadorMasAlto = jugador;
@@ -337,23 +354,71 @@ void keyPressed(){ //                                                           
     temporizadorActivo = true;
     juegoPausado = false;
     MiPuerto.write("W");
-   partidaDemo(); 
+    partidaDemo(); 
+  }
+  
+  if(keyCode == 'L' && gameStart == false){
+    gameStart = true;
+    replay = true;
+    tiempoInicio = millis();
+    temporizadorActivo = true;
+    juegoPausado = false;
+    MiPuerto.write("L");
   }
   
 }
 
 void partidaDemo(){
+  
   if (MiPuerto.available() > 0) { //siempre que el puerto este disponible..
+    float delayMovimiento = random(100);
     
-    if( MiPuerto.read() < 50 ){//si el puerto recibe una señal HIGH mueve a la derecha...
-     Jugador.x += Jugador.velocidad; 
-     //MiPuerto.clear();
-    }
+    if(MiPuerto.read() == 1){
+      
+      Jugador.x += Jugador.velocidad;
+      delay(int(delayMovimiento));
+      
+      }//if
     
-    else if( MiPuerto.read() > 50){//si recibe una señal distinta de 10 (low) mueve a la izq
+    else{
+      
      Jugador.x -= Jugador.velocidad; 
-     //MiPuerto.clear();
+     delay(int(delayMovimiento));
+
+    }//else
+    
+  }//puerto
+  
+}//funcion demo
+
+void guardarMovimientos(){
+    
+  movimientos = createWriter("partidaGuardada.txt");
+    
+    if( MiPuerto.read() == 1 ){//si el puerto recibe una señal HIGH mueve a la derecha...
+    movimientos.print(MiPuerto.read());
+    movimientos.flush();
     }
-    }
+    
+    if( MiPuerto.read() == 0){//si recibe una señal distinta de 10 (low) mueve a la izq
+     movimientos.print(MiPuerto.read());
+     movimientos.flush();
+      }
 }
+
+void reproducir(){
+  
+  for(int i = 0 ; i < lectura.length ; i++){
+      
+      if( lectura[i] == "1" ){
+        MiPuerto.write(lectura[i]);
+      }//if
+      
+    else{
+     MiPuerto.write(lectura[i]);
+      }//else
+      
+    }//for
+}
+
   
