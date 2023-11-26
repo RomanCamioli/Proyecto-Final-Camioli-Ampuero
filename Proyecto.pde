@@ -113,7 +113,6 @@ Carne.setObjeto(60, random(width), 0, 7,2); //                     CARNE
 Virus.setObjeto(80, random(width), 0, 9,-3); //                    VIRUS
  tiempoInicio = millis();
  
- 
  movimientos = createWriter("partidaGuardada.txt");
 };
 
@@ -227,11 +226,12 @@ void draw(){ //                                                                 
   
    if(replay == true){
      
+     
      int jugada = reproducir();
+     
      if( jugada == 1 ){//si el puerto recibe una señal HIGH mueve a la derecha...
-     Jugador.x += Jugador.velocidad;
-     MiPuerto.clear();
-
+       Jugador.x += Jugador.velocidad;
+       MiPuerto.clear();
     }
     
     if( jugada == 0){//si recibe una señal distinta de 1 (low) mueve a la izq
@@ -350,6 +350,7 @@ void guardarDatos() {
 void keyPressed(){ //                                                                                                     KEYPRESS
 
   if(keyCode == ENTER && gameStart == false){ //al apretar enter inicia el juego y el temporizador
+    MiPuerto.write("M");
     gameStart = true;
     tiempoInicio = millis();
     temporizadorActivo = true;
@@ -389,23 +390,25 @@ void keyPressed(){ //                                                           
     exit(); 
   }
   
-  if(keyCode == 'W' && gameStart == false){
+  if(keyCode == TAB && gameStart == false){
     MiPuerto.write("W");
     gameStart = true;
     partidaDemo = true;
     tiempoInicio = millis();
     temporizadorActivo = true;
     juegoPausado = false;
+    entradaNombre = false;
    
   }
   
-  if(keyCode == 'L' && gameStart == false){
+  if(keyCode == ALT && gameStart == false){
     MiPuerto.write("L");
     gameStart = true;
     replay = true;
     tiempoInicio = millis();
     temporizadorActivo = true;
     juegoPausado = false;
+    entradaNombre = false;
   }
   
 }
@@ -413,7 +416,7 @@ void keyPressed(){ //                                                           
 void partidaDemo(){
   
   if (partidaDemo) { //siempre que el puerto este disponible..
-    float delayMovimiento = random(40);
+    float delayMovimiento = random(20);
     
     if(MiPuerto.read() == 1){
       
@@ -450,7 +453,7 @@ void guardarMovimientos(){
    }catch (Exception e) {
     println("Error al guardar los datos: " + e.getMessage());
   }
-}
+}//funcion guardar 
 
 
 
@@ -462,8 +465,9 @@ int reproducir(){
     MiPuerto.write(lectura);    
     i++;
     return MiPuerto.read();
+    
   }
   return MiPuerto.read();
-}
+}//funcion reproducir
 
   
