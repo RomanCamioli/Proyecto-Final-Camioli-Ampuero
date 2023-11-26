@@ -1,14 +1,20 @@
 int interruptorPin = 3;
 
+int magenta = 10, amarillo = 9 , cian = 11;
+
 unsigned int estadoInterruptor;
 unsigned const int izquierda = 0, derecha = 1;
 int movimiento;
 
-bool partidaDemo = false, replay = false;
+bool partidaDemo = false, replay = false, pantallaInicio = true;
 
 void setup() {
   Serial.begin(9600);
   pinMode(interruptorPin, INPUT);
+
+  pinMode(magenta, OUTPUT);
+  pinMode(cian, OUTPUT);
+  pinMode(amarillo, OUTPUT);
 }
 
 void loop() {
@@ -16,15 +22,42 @@ void loop() {
   estadoInterruptor = digitalRead(interruptorPin);
   char dato = Serial.read();
 
+  if(pantallaInicio == true){
+
+    digitalWrite(magenta, HIGH);
+  delay(200);
+  digitalWrite(magenta, LOW);
+  delay(10);
+  
+  digitalWrite(cian, HIGH);
+  delay(200);
+  digitalWrite(cian, LOW);
+  delay(10);
+  
+  digitalWrite(amarillo, HIGH);
+  delay(200);
+  digitalWrite(amarillo, LOW);
+  delay(10);
+  }
+
+  if(dato == 'M'){
+    pantallaInicio = false;
+  }
+
   if( dato == 'W' ){
     partidaDemo = true ;
-    //Serial.println("Partida demo activa");
+
   }//if
 
   if(partidaDemo == true){
 
+    pantallaInicio = false;
+    
+    digitalWrite(cian, HIGH);
+    digitalWrite(magenta, LOW);
+    digitalWrite(amarillo, LOW);
+    
     movimiento = random(2);
-    //Serial.println("Partida demo activa");
 
       if(movimiento == 1){
         Serial.write(derecha);
@@ -36,8 +69,13 @@ void loop() {
 
   }//if partidaDemo
 
-  else if(partidaDemo == false && replay == false){
- 
+  else if(partidaDemo == false && replay == false && pantallaInicio == false){
+
+    
+    digitalWrite(magenta, HIGH);
+    digitalWrite(amarillo, LOW);
+    digitalWrite(cian, LOW);
+    
     if(estadoInterruptor == HIGH){ //derecha
     Serial.write(derecha);
     }//if
@@ -53,9 +91,13 @@ void loop() {
   }//if
 
   if(replay == true){
-
     
-    //Serial.println("Partida replay activa");
+    pantallaInicio = false;
+    partidaDemo = false;
+    
+    digitalWrite(cian, LOW);
+    digitalWrite(magenta, LOW);
+    digitalWrite(amarillo, HIGH);
 
       if(dato == '1'){
         Serial.write(derecha);
@@ -68,6 +110,10 @@ void loop() {
       }//else
 
   }//if replay
+ 
+  
+  
+ 
 
-
+ 
 }//loop
